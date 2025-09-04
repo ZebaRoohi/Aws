@@ -1,0 +1,87 @@
+✅ Step 1: Create a Simple HTML File
+
+On your computer, create a file named index.html with this content:
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My First AWS Website</title>
+  </head>
+  <body style="font-family: Arial; text-align: center; margin-top: 100px;">
+    <h1>Hello from AWS S3!</h1>
+    <p>This is my first static website hosted on Amazon S3.</p>
+  </body>
+</html>
+
+
+Keep this file ready — we’ll upload it to S3.
+
+✅ Step 2: Create an S3 Bucket
+
+Log in to your AWS Management Console.
+
+Search for S3 → click S3.
+
+Click Create bucket.
+
+Bucket name: must be unique (e.g., zeba-s3-demo-2025).
+
+Region: choose a region near you (e.g., Asia Pacific (Mumbai) ap-south-1).
+
+Uncheck “Block all public access” (because we want the website to be public).
+
+It will warn you → check the confirmation box.
+
+Click Create bucket.
+
+✅ Step 3: Upload Your Website File
+
+Open your new bucket.
+
+Go to Objects tab → click Upload.
+
+Add your index.html file → click Upload.
+
+✅ Step 4: Enable Static Website Hosting
+
+Inside the bucket → Go to Properties tab.
+
+Scroll to Static website hosting → click Edit.
+
+Select Enable.
+
+Hosting type → Host a static website.
+
+Index document → type index.html.
+
+Save changes.
+
+At the bottom of that section, you’ll now see a Bucket website endpoint URL (something like http://zeba-s3-demo-2025.s3-website-ap-south-1.amazonaws.com).
+
+✅ Step 5: Make the File Public
+
+By default, S3 objects are private.
+
+Go to Permissions tab of the bucket.
+
+Scroll to Bucket Policy → click Edit.
+
+Paste this policy (replace YOUR-BUCKET-NAME with your actual bucket name):
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublicReadGetObject",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::zeba-s3-demo-2025/*"
+    }
+  ]
+}
+
+
+Save changes.
+
+Now your index.html will be publicly accessible.

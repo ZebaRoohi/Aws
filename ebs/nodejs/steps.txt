@@ -1,0 +1,29 @@
+Step1 : Prepare for Elastic Beanstalk
+pip install awsebcli --upgrade 
+
+Step 2: Initialize your app for Elastic Beanstalk
+
+In CMD, go to your project folder where app.js is located. Example:
+cd D:\NodeApp   # (replace with your actual project path)
+
+Step3:Initialize EB:
+
+eb init
+
+Select region → choose the same AWS region you used for S3 (e.g., ap-south-1).
+
+Select application name → give a name like node-eb-app.
+
+Select platform → choose Node.js.
+
+Do you want to set up SSH? → type n for now (we’ll skip SSH).
+
+Step4:Create an environment:
+eb create node-env
+This will create an Elastic Beanstalk environment.
+
+It will take 2–5 minutes to set up.
+
+Step5:Open your app in browser
+eb open
+

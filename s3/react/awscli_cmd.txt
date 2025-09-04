@@ -1,0 +1,102 @@
+aws-cli-guide.md
+# AWS CLI & S3 Sync Guide
+
+This guide explains how to use the AWS CLI to deploy a React/Vite app to an S3 bucket.
+
+---
+
+## 1. What is AWS CLI?
+The **AWS Command Line Interface (CLI)** is a tool to interact with AWS services from your terminal (instead of the AWS Console).
+
+Example:
+```bash
+aws s3 ls
+2. Configure AWS CLI
+
+Before using it, you must configure your AWS credentials:
+
+aws configure
+
+
+You will be prompted to enter:
+
+AWS Access Key ID
+
+AWS Secret Access Key
+
+Default region (e.g., ap-south-1 for Mumbai)
+
+Output format (json, table, or text)
+
+✅ This stores credentials locally so you don’t enter them every time.
+
+3. Build Your React/Vite App
+
+For Vite projects:
+
+npm run build
+
+
+This creates a dist/ folder containing your production-ready app.
+
+For Create React App:
+
+npm run build
+
+
+This creates a build/ folder.
+
+4. What is aws s3 sync?
+
+The command:
+
+aws s3 sync <local-folder> s3://<bucket-name> --delete
+
+Explanation:
+
+sync → Synchronizes files between local and S3.
+
+<local-folder> → The folder on your machine (e.g., dist/).
+
+s3://<bucket-name> → Your S3 bucket name.
+
+--delete → Removes files from S3 that are not in your local folder (keeps S3 clean and updated).
+
+Example:
+
+aws s3 sync dist/ s3://react-weatherapi --delete
+
+
+This uploads all files from dist/ to the react-weatherapi bucket and deletes old files that don’t exist locally anymore.
+
+5. Other Useful AWS CLI Commands
+List all buckets:
+aws s3 ls
+
+List files inside a bucket:
+aws s3 ls s3://react-weatherapi
+
+Upload a single file:
+aws s3 cp dist/index.html s3://react-weatherapi/index.html
+
+Download a file from S3:
+aws s3 cp s3://react-weatherapi/index.html ./index.html
+
+6. Typical Deployment Steps (Vite)
+
+Build app:
+
+npm run build
+
+
+Sync with S3:
+
+aws s3 sync dist/ s3://react-weatherapi --delete
+
+
+Open the site URL:
+
+http://react-weatherapi.s3-website.ap-south-1.amazonaws.com/
+
+
+✅ That’s it! Now you can update your app with just two commands (npm run build + aws s3 sync ...).
